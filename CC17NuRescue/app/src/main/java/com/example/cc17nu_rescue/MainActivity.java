@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -44,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("Login user");
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0E86D4")));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         authProfile = FirebaseAuth.getInstance();
         Username = findViewById(R.id.username);
@@ -119,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Toast.makeText(MainActivity.this, "You are now Logged in", Toast.LENGTH_SHORT).show();
                         //open user profile
-                        startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                 }else{
                     try{
                         throw task.getException();

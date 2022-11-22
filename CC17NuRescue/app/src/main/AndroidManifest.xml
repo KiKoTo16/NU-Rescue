@@ -13,11 +13,32 @@
         android:theme="@style/Theme.CC17NuRescue"
         tools:targetApi="31">
         <activity
-            android:name=".LocationActivity"
+            android:name=".PetProfileActivity"
             android:exported="false">
             <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AdoptActivity" />
+        </activity>
+        <activity
+            android:name=".UploadDPActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ProfileActivity" />
+        </activity>
+        <activity
+            android:name=".SurrenderActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
+        <activity
+            android:name=".AdoptActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
         </activity>
         <activity
             android:name=".DonationActivity"
@@ -58,8 +79,8 @@
             android:name=".RegisterActivity"
             android:exported="false">
             <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".WelcomeActivity" />
         </activity>
         <activity
             android:name=".SplashActivity"
@@ -78,8 +99,8 @@
             android:name=".MainActivity"
             android:exported="false">
             <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".WelcomeActivity" />
         </activity>
     </application>
 

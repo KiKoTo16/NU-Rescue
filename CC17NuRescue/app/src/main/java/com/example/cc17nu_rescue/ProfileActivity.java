@@ -3,9 +3,14 @@ package com.example.cc17nu_rescue;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 
+import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -25,6 +30,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 
 public class ProfileActivity extends AppCompatActivity {
@@ -41,6 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0E86D4")));
 
         textFullname = findViewById(R.id.fullname);
         textEmail = findViewById(R.id.email);
@@ -49,6 +56,16 @@ public class ProfileActivity extends AppCompatActivity {
         textNumber = findViewById(R.id.phone);
         textWelcome = findViewById(R.id.welcome);
         PBar = findViewById(R.id.pbar);
+
+        //set Onclick Listener on Imageview to open upload profile pic activity
+        imageView = findViewById(R.id.profileDp);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, UploadDPActivity.class);
+                startActivity(intent);
+            }
+        });
 
         authProfile = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = authProfile.getCurrentUser();
@@ -86,43 +103,12 @@ public class ProfileActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), DonationActivity.class));
                         overridePendingTransition(0, 0);
                         return true;
-                    case R.id.location:
-                        startActivity(new Intent(getApplicationContext(), LocationActivity.class));
-                        overridePendingTransition(0, 0);
-                        return true;
                 }
                 return false;
             }
         });
     }
 
-   /* private void checkIfEmailVerified(FirebaseUser firebaseUser) {
-        if(!firebaseUser.isEmailVerified()){
-            showAlertDialog();
-        }
-    }
-
-    private void showAlertDialog() {
-        //set up alert builder
-        AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
-        builder.setTitle("Email not Verified");
-        builder.setMessage("Please verify your email. You cannot log in without email verification");
-
-        //open email app
-        builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_APP_EMAIL);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // to email window
-                startActivity(intent);
-            }
-        });
-        //alert box
-        AlertDialog alertDialog = builder.create();
-        //show alert box
-        alertDialog.show();
-    }*/
 
     private void showUserProfile(FirebaseUser firebaseUser) {
         String userID = firebaseUser.getUid();
@@ -146,6 +132,14 @@ public class ProfileActivity extends AppCompatActivity {
                     textBday.setText(bday);
                     textGender.setText(gender);
                     textNumber.setText(number);
+
+                    //setUser Dp (after user has uploaded)
+                    Uri uri = firebaseUser.getPhotoUrl();
+
+                    //Imageviewer set ImageURI() should not be used with regular URIs. So we using Picasso
+                    Picasso.with(ProfileActivity.this).load(uri).into(imageView);
+                }else{
+                    Toast.makeText(ProfileActivity.this, "something went wrong!", Toast.LENGTH_LONG).show();
                 }
                 PBar.setVisibility(View.GONE);
             }
@@ -170,26 +164,15 @@ public class ProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if(id == R.id.menu_refresh){
+        if(id == android.R.id.home){
+            NavUtils.navigateUpFromSameTask(ProfileActivity.this);
+        }
+        else if(id == R.id.menu_refresh){
             //refresh page
             startActivity(getIntent());
             finish();
             overridePendingTransition(0,0 );
-        } /*else if(id == R.id.updateProfile){
-            Intent intent = new Intent(ProfileActivity.this,UpdateProfileActivity.class);
-            startActivity(intent);
-        } else if(id == R.id.updateEmail) {
-            Intent intent = new Intent(ProfileActivity.this, UpdateEmailActivity.class);
-            startActivity(intent);
-        }else if(id == R.id.settings) {
-            Toast.makeText(ProfileActivity.this, "menu_settings", Toast.LENGTH_SHORT).show();
-        }else if(id == R.id.changePassword) {
-            Intent intent = new Intent(ProfileActivity.this, ChangePasswordActivity.class);
-            startActivity(intent);
-        }else if(id == R.id.delete_Profile) {
-            Intent intent = new Intent(ProfileActivity.this, DeleteProfileActivity.class);
-            startActivity(intent);
-        }*/else if(id == R.id.logout) {
+        } else if(id == R.id.logout) {
             authProfile.signOut();
             Toast.makeText(ProfileActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(ProfileActivity.this, WelcomeActivity.class);

@@ -7,6 +7,41 @@
     android:background="@color/baby_blue"
     tools:context=".HomeActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/baby_blue"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/greetings"
+                android:hint="Loading..."
+                android:layout_centerInParent="true"
+                android:textSize="32dp"
+                android:textColor="@color/black"/>
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pbar"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:elevation="10dp"
+                android:visibility="gone"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp">
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="261dp"
@@ -14,52 +49,59 @@
         android:src="@drawable/paw"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/adopt"
-        android:layout_width="124dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="310dp"
-        android:layout_marginEnd="225dp"
-        android:backgroundTint="@color/gray"
-        android:text="adopt"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/surrender"
-        app:layout_constraintHorizontal_bias="0.576"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.324" />
+        android:background="@color/baby_blue"/>
 
-    <Button
-        android:id="@+id/surrender"
-        android:layout_width="124dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="311dp"
-        android:layout_marginEnd="67dp"
-        android:backgroundTint="@color/light_gray"
-        android:text="Surrender"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.324" />
+        </RelativeLayout>
 
-    <ImageView
-        android:layout_width="339dp"
-        android:layout_height="321dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="125dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/animals" />
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/adopt"
+                android:layout_width="124dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/gray"
+                android:text="adopt"
+                android:textColor="@color/black"
+                />
+
+            <Button
+                android:id="@+id/surrender"
+                android:layout_width="124dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/light_gray"
+                android:layout_marginLeft="10dp"
+                android:text="Surrender"
+                android:textColor="@color/black"/>
+
+            <Button
+                android:id="@+id/volunteer"
+                android:layout_width="124dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/light_gray"
+                android:layout_marginLeft="10dp"
+                android:text="Volunteer"
+                android:textColor="@color/black"/>
+
+        </GridLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp">
+
+            <ImageView
+                android:layout_marginTop="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="325dp"
+                app:srcCompat="@drawable/animals" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"

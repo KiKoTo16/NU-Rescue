@@ -1,9 +1,12 @@
 package com.example.cc17nu_rescue;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -15,8 +18,9 @@ public class MessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-        getSupportActionBar().hide();
-
+        getSupportActionBar().setTitle("Messages");
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0E86D4")));
+        showAlertDialog();
         //Initialization
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         //Home
@@ -40,13 +44,22 @@ public class MessageActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),DonationActivity.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.location:
-                        startActivity(new Intent(getApplicationContext(),LocationActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
                 }
                 return false;
             }
         });
+    }
+    private void showAlertDialog() {
+        //set up alert builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(MessageActivity.this);
+        builder.setTitle("Currently under develop.");
+        builder.setMessage("Sorry for the inconvenient but this page is currently under develop.");
+
+        //open email app
+        builder.setPositiveButton("Okay", null);
+        //alert box
+        AlertDialog alertDialog = builder.create();
+        //show alert box
+        alertDialog.show();
     }
 }
